@@ -3,6 +3,7 @@ package exercicios;
 import exercicios.base.Aula;
 import lombok.NonNull;
 
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -48,13 +49,17 @@ public class Aula04 extends Aula {
     }
 
     protected double maiorNotaCursoAndSexo(@NonNull final Stream<Estudante> stream, @NonNull final Curso curso, final char sexo) {
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
-        return -1;
+        return stream.filter(estudante -> Objects.equals(estudante.getCurso(),curso))
+                .filter(estudante -> estudante.getSexo() == sexo)
+                .mapToDouble(Estudante::getNota)
+                .max()
+                .orElse(0.0);
     }
 
     protected long totalEstudantesCursoAndSexo(@NonNull final Stream<Estudante> stream, @NonNull final Curso curso, final char sexo) {
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
-        return -1;
+        return stream.filter(estudante -> Objects.equals(estudante.getCurso(),curso))
+                .filter(estudante -> estudante.getSexo() == sexo)
+                .count();
     }
 
     protected double mediaNotaTodosEstudantesCurso(@NonNull final Stream<Estudante> stream, @NonNull final Curso curso){
@@ -69,8 +74,10 @@ public class Aula04 extends Aula {
 
 
     protected double maiorNotaHomens(@NonNull final Stream<Estudante> stream){
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
-        return -1;
+        return stream.filter(Estudante::isHomem)
+                .mapToDouble(Estudante::getNota)
+                .max()
+                .orElse(0.0);
     }
 }
 
