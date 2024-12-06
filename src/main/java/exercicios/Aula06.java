@@ -2,9 +2,11 @@ package exercicios;
 
 import exercicios.base.Aula;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Esta é uma classe para você poder implementar as atividades propostas no README.
@@ -41,6 +43,7 @@ public class Aula06 extends Aula {
         //TODO: Insira chamdas das funções existentes aqui, para você conferir como estão funcionando
         System.out.println(getEstudantesMulheresAprovadas());
         System.out.println(getEstudantesMulheresAprovadasOrdenadasPorCursoAndNota());
+        System.out.println(getEstudantesMulheresAprovadasOrdenadasPorCursoDecrescenteAndNotaCrescente());
     }
 
     /**
@@ -87,8 +90,13 @@ public class Aula06 extends Aula {
      * @return uma Lista <b>NÃO-MODIFICÁVEL</b> de estudantes selecionados pelo predicado {@link #mulheresAprovadas}
      */
     public List<Estudante> getEstudantesMulheresAprovadasOrdenadasPorCursoDecrescenteAndNotaCrescente() {
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
-        return null;
+        return estudantes.stream()
+                .filter(Estudante::isMulher)
+                .filter(Estudante::isAprovado)
+                .sorted(Comparator.comparing(Estudante::getCurso)
+                        .reversed()
+                        .thenComparing(Estudante::getNota))
+                .toList();
     }
 
     /**
@@ -99,8 +107,10 @@ public class Aula06 extends Aula {
      * @return uma Lista <b>MODIFICÁVEL</b> de estudantes selecionados pelo predicado {@link #mulheresAprovadas}
      */
     public List<Estudante> getEstudantesMulheresAprovadasNaoOrdenadasModificavel() {
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
-        return null;
+        return estudantes.stream()
+                .filter(Estudante::isMulher)
+                .filter(Estudante::isAprovado)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
