@@ -2,6 +2,7 @@ package exercicios;
 
 import exercicios.base.Aula;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -38,6 +39,8 @@ public class Aula06 extends Aula {
      */
     public Aula06() {
         //TODO: Insira chamdas das funções existentes aqui, para você conferir como estão funcionando
+        System.out.println(getEstudantesMulheresAprovadas());
+        System.out.println(getEstudantesMulheresAprovadasOrdenadasPorCursoAndNota());
     }
 
     /**
@@ -56,8 +59,10 @@ public class Aula06 extends Aula {
      * @return uma Lista <b>NÃO-MODIFICÁVEL</b> de estudantes selecionados pelo predicado {@link #mulheresAprovadas}
      */
     public List<Estudante> getEstudantesMulheresAprovadas() {
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
-        return null;
+        return estudantes.stream()
+                .filter(Estudante::isMulher)
+                .filter(Estudante::isAprovado)
+                .toList();
     }
 
     /**
@@ -67,8 +72,12 @@ public class Aula06 extends Aula {
      * @return uma Lista <b>NÃO-MODIFICÁVEL</b> de estudantes selecionados pelo predicado {@link #mulheresAprovadas}
      */
     public List<Estudante> getEstudantesMulheresAprovadasOrdenadasPorCursoAndNota() {
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
-        return null;
+        return estudantes.stream()
+                .filter(Estudante::isMulher)
+                .filter(Estudante::isAprovado)
+                .sorted(Comparator.comparing(Estudante::getCurso)
+                        .thenComparing(Estudante::getNota))
+                .toList();
     }
 
     /**
