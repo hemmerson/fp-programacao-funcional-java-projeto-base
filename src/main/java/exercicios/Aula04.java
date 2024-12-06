@@ -63,13 +63,16 @@ public class Aula04 extends Aula {
     }
 
     protected double mediaNotaTodosEstudantesCurso(@NonNull final Stream<Estudante> stream, @NonNull final Curso curso){
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
-        return -1;
+        return stream.filter(estudante -> Objects.equals(estudante.getCurso(), curso))
+                .mapToDouble(Estudante::getNota)
+                .average()
+                .orElse(0.0);
     }
 
     protected double maiorNotaTodosEstudantes(@NonNull final Stream<Estudante> stream){
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
-        return -1;
+        return stream.mapToDouble(Estudante::getNota)
+                .max()
+                .orElse(0.0);
     }
 
 
