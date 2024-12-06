@@ -44,6 +44,9 @@ public class Aula06 extends Aula {
         System.out.println(getEstudantesMulheresAprovadas());
         System.out.println(getEstudantesMulheresAprovadasOrdenadasPorCursoAndNota());
         System.out.println(getEstudantesMulheresAprovadasOrdenadasPorCursoDecrescenteAndNotaCrescente());
+        System.out.println(getEstudantesMulheresAprovadasNaoOrdenadasModificavel());
+        System.out.println(getEstudantesMulheresAprovadasOrdenadasTotalmenteDecrescente());
+        System.out.println(getEstudantesMulheresAprovadasOrdenadasPorCursoCrescenteAndNotaDecrescente());
     }
 
     /**
@@ -120,8 +123,12 @@ public class Aula06 extends Aula {
      * @return uma Lista <b>NÃO-MODIFICÁVEL</b> de estudantes selecionados pelo predicado {@link #mulheresAprovadas}
      */
     public List<Estudante> getEstudantesMulheresAprovadasOrdenadasTotalmenteDecrescente() {
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
-        return null;
+        return estudantes.stream()
+                .filter(Estudante::isMulher)
+                .filter(Estudante::isAprovado)
+                .sorted(Comparator.comparing(Estudante::getCurso).reversed()
+                        .thenComparing(Comparator.comparing(Estudante::getNota).reversed()))
+                .toList();
     }
 
     /**
@@ -131,7 +138,11 @@ public class Aula06 extends Aula {
      * @return uma Lista <b>NÃO-MODIFICÁVEL</b> de estudantes selecionados pelo predicado {@link #mulheresAprovadas}
      */
     public List<Estudante> getEstudantesMulheresAprovadasOrdenadasPorCursoCrescenteAndNotaDecrescente() {
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
-        return null;
+        return estudantes.stream()
+                .filter(Estudante::isMulher)
+                .filter(Estudante::isAprovado)
+                .sorted(Comparator.comparing(Estudante::getCurso).
+                        thenComparing(Comparator.comparing(Estudante::getNota).reversed()))
+                .toList();
     }
 }
